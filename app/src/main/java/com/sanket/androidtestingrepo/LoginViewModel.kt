@@ -6,4 +6,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(): ViewModel() {
+    fun login(userName: String, password: String) {
+
+    }
 }
