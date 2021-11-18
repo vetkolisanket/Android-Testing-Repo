@@ -61,4 +61,16 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintBottom_toBottomOf="parent"
         android:text="@string/login" />
+
+    <TextView
+        android:id="@+id/tvNote"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/user_name_password_note"
+        android:textSize="12sp"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
