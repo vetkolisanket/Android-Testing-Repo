@@ -4,4 +4,7 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="user_name_password_note">Note: Username should be at least 4 characters long and password should be at least 6 characters long</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string name="username_error">Username should be at least 4 characters long</string>
+    <string name="password_error">Password should be at least 6 characters long</string>
 </resources>
