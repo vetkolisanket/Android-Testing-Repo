@@ -1,6 +1,8 @@
 package com.sanket.androidtestingrepo
 
+import android.app.ProgressDialog
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -29,13 +31,19 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initPasswordLD() {
         viewModel.getPasswordLD().observe(this, {
-            if (it is Resource.Error) binding.etPassword.error = getString(R.string.password_error)
+            if (it is Resource.Error) {
+                binding.etPassword.error = getString(R.string.password_error)
+                hideProgress()
+            }
         })
     }
 
     private fun initUsernameLD() {
         viewModel.getUsernameLD().observe(this, {
-            if (it is Resource.Error) binding.etUsername.error = getString(R.string.username_error)
+            if (it is Resource.Error) {
+                binding.etUsername.error = getString(R.string.username_error)
+                hideProgress()
+            }
         })
     }
 
@@ -58,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun hideProgress() {
-        toast("Hide Progress")
+        binding.llProgressBar.llProgress.hide()
     }
 
     private fun toast(message: String) {
@@ -66,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showProgress() {
-        toast("Show Progress")
+        binding.llProgressBar.llProgress.show()
     }
 
     private fun initViews() {
@@ -76,5 +84,6 @@ class LoginActivity : AppCompatActivity() {
                 binding.etPassword.text.toString().trim()
             )
         }
+        binding.llProgressBar.llProgress.setOnClickListener { /* no-op */ }
     }
 }

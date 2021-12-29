@@ -7,4 +7,5 @@
     <string name="unknown_error">Unknown Error</string>
     <string name="username_error">Username should be at least 4 characters long</string>
     <string name="password_error">Password should be at least 6 characters long</string>
+    <string name="please_wait">Please wait …</string>
 </resources>

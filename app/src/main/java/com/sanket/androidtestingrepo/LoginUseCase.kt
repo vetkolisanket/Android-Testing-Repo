@@ -4,7 +4,7 @@ class LoginUseCase(
     private val repository: AuthRepository
 ) {
 
-    suspend operator fun invoke(userName: String, password: String): LoginResult {
+    /*suspend operator fun invoke(userName: String, password: String): LoginResult {
         val trimUserName = userName.trim()
         val trimPassword = password.trim()
 
@@ -15,6 +15,6 @@ class LoginUseCase(
             LoginResult(userNameError, passwordError)
 
         return LoginResult(result = repository.login(trimUserName, trimPassword))
-    }
+    }*/
 
 }

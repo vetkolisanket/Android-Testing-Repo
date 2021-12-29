@@ -26,16 +26,23 @@ class LoginViewModel @Inject constructor(
         val passwordError = if (password.length < 6) AuthError.InputTooShort else null
 
         if (usernameError != null || passwordError != null) {
-            if (usernameError != null)
+            if (usernameError != null) {
                 usernameLD.value = Resource.Error(UiText.StringResource(R.string.username_error))
-            if (passwordError != null)
+                return
+            }
+
+            if (passwordError != null) {
                 passwordLD.value = Resource.Error(UiText.StringResource(R.string.password_error))
-            return
+                return
+            }
         }
 
-        loginLD.value = repository.login(username, password)
+        repository.login(username, password, object : ResponseCallback<SimpleResource> {
+            override fun onResponse(response: SimpleResource) {
+                loginLD.value = response
+            }
+        })
     }
-
 
 
 }
