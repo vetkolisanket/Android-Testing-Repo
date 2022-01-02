@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
                     it.uiText?.let { uiText ->
                         toast(uiText.getText(this))
                     }
-                    EspressoIdlingResource.decrement()
+//                    EspressoIdlingResource.decrement()
                 }
                 is Resource.Success -> {
                     hideProgress()
@@ -79,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initViews() {
         binding.btnLogin.setOnClickListener {
-            EspressoIdlingResource.increment()
+//            EspressoIdlingResource.increment()
             viewModel.login(
                 binding.etUsername.text.toString().trim(),
                 binding.etPassword.text.toString().trim()

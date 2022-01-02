@@ -35,6 +35,8 @@ class LoginActivityTest {
     private lateinit var scenario: ActivityScenario<LoginActivity>
     private val robot: LoginRobot = LoginRobot()
     private val loginLD = MutableLiveData<SimpleResource>()
+    private val usernameLD = MutableLiveData<SimpleResource>()
+    private val passwordLD = MutableLiveData<SimpleResource>()
 
     fun launch() {
         scenario = ActivityScenario.launch(LoginActivity::class.java)
@@ -44,7 +46,10 @@ class LoginActivityTest {
     fun setup() {
         Intents.init()
         hiltRule.inject()
+        setInternalFieldValue(viewModel, "mBagOfTags", HashMap<String, Any>())
         every { viewModel.getLoginLD() } returns loginLD
+        every { viewModel.getUsernameLD() } returns usernameLD
+        every { viewModel.getPasswordLD() } returns passwordLD
         IdlingRegistry.getInstance().register(EspressoIdlingResource.idlingResource)
     }
 
@@ -75,6 +80,21 @@ class LoginActivityTest {
             .clickLoginBtn()
             .sendMockSuccessResponse(loginLD)
             .checkIfMainActivityIsOpen()
+    }
+
+    private fun setInternalFieldValue(target: Any, fieldName: String, value: Any, javaClass: Class<in Any> = target.javaClass) {
+        try {
+            val field = javaClass.getDeclaredField(fieldName)
+            field.isAccessible = true
+            field.set(target, value)
+        } catch (exception: NoSuchFieldException) {
+            val superClass = javaClass.superclass
+            if (superClass != null) {
+                setInternalFieldValue(target, fieldName, value, superClass)
+            } else {
+                throw RuntimeException("Field $fieldName is not declared in a hierarchy of this class")
+            }
+        }
     }
 
 }

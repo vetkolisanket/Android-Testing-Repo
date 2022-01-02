@@ -16,10 +16,10 @@ open class LoginViewModel @Inject constructor(
     private val passwordLD = MutableLiveData<SimpleResource>()
 
     open fun getLoginLD(): LiveData<SimpleResource> = loginLD
-    fun getUsernameLD(): LiveData<SimpleResource> = usernameLD
-    fun getPasswordLD(): LiveData<SimpleResource> = passwordLD
+    open fun getUsernameLD(): LiveData<SimpleResource> = usernameLD
+    open fun getPasswordLD(): LiveData<SimpleResource> = passwordLD
 
-    fun login(username: String, password: String) {
+    open fun login(username: String, password: String) {
         loginLD.value = Resource.Loading
 
         val usernameError = if (username.length < 4) AuthError.InputTooShort else null
