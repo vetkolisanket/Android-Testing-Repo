@@ -1,12 +1,11 @@
 package com.sanket.androidtestingrepo
 
-import android.app.ProgressDialog
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.sanket.androidtestingrepo.databinding.ActivityLoginBinding
+import com.sanket.androidtestingrepo.espresso.EspressoIdlingResource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,10 +55,11 @@ class LoginActivity : AppCompatActivity() {
                     it.uiText?.let { uiText ->
                         toast(uiText.getText(this))
                     }
+                    EspressoIdlingResource.decrement()
                 }
                 is Resource.Success -> {
                     hideProgress()
-                    toast("Go to home page")
+                    openActivity<MainActivity>()
                 }
             }
         })
@@ -79,6 +79,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initViews() {
         binding.btnLogin.setOnClickListener {
+            EspressoIdlingResource.increment()
             viewModel.login(
                 binding.etUsername.text.toString().trim(),
                 binding.etPassword.text.toString().trim()

@@ -9,7 +9,8 @@ class MockAuthRepository: AuthRepository {
         val resource = if (Random.nextInt(10) > 7) Resource.Error(UiText.unknownError())
         else Resource.Success(Unit)
         Handler(Looper.getMainLooper()).postDelayed({
-            responseCallback.onResponse(resource)
+//            responseCallback.onResponse(resource)
+            responseCallback.onResponse(Resource.Success(Unit))
         }, Random.nextLong(500, 2000))
     }
 }

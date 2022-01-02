@@ -37,7 +37,7 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun givenCorrectUsernameAndPasswordShouldReturnSuccess() {
+    fun `given correct username and password, when login is called, then should return success`() {
         val username = "Sanket"
         val password = "Sanket"
 
@@ -49,6 +49,31 @@ class LoginViewModelTest {
             responseCaptor.value.onResponse(successResponse)
             Mockito.verify(mockLoginObserver).onChanged(successResponse)
         }
+    }
+
+    @Test
+    fun `given incorrect username and password, when login is called, then should return error`() {
+
+    }
+
+    @Test
+    fun `given empty username, when login is called, then should return error`() {
+
+    }
+
+    @Test
+    fun `given empty password, when login is called, then should return error`() {
+
+    }
+
+    @Test
+    fun `given short username, when login is called, then should return error`() {
+
+    }
+
+    @Test
+    fun `given short password, when login is called, then should return error`() {
+
     }
 
 }

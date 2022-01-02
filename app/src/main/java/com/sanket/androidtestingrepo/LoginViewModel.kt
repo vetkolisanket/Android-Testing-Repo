@@ -7,7 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+open class LoginViewModel @Inject constructor(
     private val repository: AuthRepository
 ) : ViewModel() {
 
@@ -15,7 +15,7 @@ class LoginViewModel @Inject constructor(
     private val usernameLD = MutableLiveData<SimpleResource>()
     private val passwordLD = MutableLiveData<SimpleResource>()
 
-    fun getLoginLD(): LiveData<SimpleResource> = loginLD
+    open fun getLoginLD(): LiveData<SimpleResource> = loginLD
     fun getUsernameLD(): LiveData<SimpleResource> = usernameLD
     fun getPasswordLD(): LiveData<SimpleResource> = passwordLD
 
@@ -43,6 +43,5 @@ class LoginViewModel @Inject constructor(
             }
         })
     }
-
 
 }
