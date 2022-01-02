@@ -25,9 +25,9 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class LoginActivityTest {
 
-    /*@BindValue
+    @BindValue
     @JvmField
-    val viewModel = mockk<LoginViewModel>(relaxed = true)*/
+    val viewModel = mockk<LoginViewModel>(relaxed = true)
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
@@ -44,7 +44,7 @@ class LoginActivityTest {
     fun setup() {
         Intents.init()
         hiltRule.inject()
-//        every { viewModel.getLoginLD() } returns loginLD
+        every { viewModel.getLoginLD() } returns loginLD
         IdlingRegistry.getInstance().register(EspressoIdlingResource.idlingResource)
     }
 
