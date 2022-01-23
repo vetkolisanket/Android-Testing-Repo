@@ -30,6 +30,9 @@ class LoginViewModelTest {
     @Captor
     private lateinit var responseCaptor: ArgumentCaptor<ResponseCallback<SimpleResource>>
 
+    private var username = "Sanket"
+    private var password = "Sanket"
+
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this)
@@ -38,9 +41,6 @@ class LoginViewModelTest {
 
     @Test
     fun `given correct username and password, when login is called, then should return success`() {
-        val username = "Sanket"
-        val password = "Sanket"
-
         loginViewModel.getLoginLD().observeForTesting(mockLoginObserver) {
             loginViewModel.login(username, password)
             Mockito.verify(mockLoginObserver).onChanged(Resource.Loading)
@@ -53,7 +53,14 @@ class LoginViewModelTest {
 
     @Test
     fun `given incorrect username and password, when login is called, then should return error`() {
-
+        loginViewModel.getLoginLD().observeForTesting(mockLoginObserver) {
+            loginViewModel.login(username, password)
+            Mockito.verify(mockLoginObserver).onChanged(Resource.Loading)
+            Mockito.verify(mockRepository).login(eq(username), eq(password), capture(responseCaptor))
+            val errorResponse = Resource.unknownError()
+            responseCaptor.value.onResponse(errorResponse)
+            Mockito.verify(mockLoginObserver).onChanged(errorResponse)
+        }
     }
 
     @Test

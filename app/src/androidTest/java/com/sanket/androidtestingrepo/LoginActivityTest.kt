@@ -66,8 +66,6 @@ class LoginActivityTest {
 
     @Test
     fun should_open_main_activity_on_submitting_correct_username_and_password() {
-        // Two things pending,
-        // 1. mocking view model,
         val username = "Sanket"
         val password = "Sanket"
 
