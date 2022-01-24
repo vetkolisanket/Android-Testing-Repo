@@ -23,6 +23,7 @@
         />
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/tilUsername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -31,37 +32,50 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/startGuidline"
         app:layout_constraintTop_toTopOf="parent"
+        android:hint="@string/username"
+        app:startIconDrawable="@drawable/ic_person_24"
+        app:helperText="@string/required_asterisk"
+        app:helperTextTextColor="@color/red"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:endIconMode="clear_text"
+        app:prefixText="+91"
+        app:prefixTextColor="@color/purple_500"
         app:layout_constraintVertical_chainStyle="packed">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/username"
+            android:maxLength="20"
             android:inputType="textPersonName"
             android:autofillHints="username" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/tilPassword"
         android:layout_width="0dp"
+        app:startIconDrawable="@drawable/ic_lock_24"
+        app:passwordToggleEnabled="true"
+        app:counterEnabled="true"
         android:layout_height="wrap_content"
+        app:helperText="@string/required_asterisk"
+        app:helperTextTextColor="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/endGuidline"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/startGuidline"
         app:layout_constraintTop_toBottomOf="@+id/tilUsername"
+        android:hint="@string/password"
         app:layout_constraintBottom_toTopOf="@id/btnLogin"
         >
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/password"
             android:inputType="textPassword"
             android:autofillHints="password" />
 
@@ -93,7 +107,7 @@
         android:id="@+id/llProgressBar"
         android:visibility="gone"
         layout="@layout/view_progress"
-        tools:visibility="visible"
+        tools:visibility="gone"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

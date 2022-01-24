@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
     private fun initPasswordLD() {
         viewModel.getPasswordLD().observe(this, {
             if (it is Resource.Error) {
-                binding.etPassword.error = getString(R.string.password_error)
+                binding.tilPassword.error = getString(R.string.password_error)
                 hideProgress()
             }
         })
@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
     private fun initUsernameLD() {
         viewModel.getUsernameLD().observe(this, {
             if (it is Resource.Error) {
-                binding.etUsername.error = getString(R.string.username_error)
+                binding.tilUsername.error = getString(R.string.username_error)
                 hideProgress()
             }
         })
