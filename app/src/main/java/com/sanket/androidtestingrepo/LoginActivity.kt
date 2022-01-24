@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.sanket.androidtestingrepo.databinding.ActivityLoginBinding
-import com.sanket.androidtestingrepo.espresso.EspressoIdlingResource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
     private fun initPasswordLD() {
         viewModel.getPasswordLD().observe(this, {
             if (it is Resource.Error) {
-                binding.tilPassword.error = getString(R.string.password_error)
+                binding.tilPassword.error = getString(R.string.password_short_error)
                 hideProgress()
             }
         })
@@ -40,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
     private fun initUsernameLD() {
         viewModel.getUsernameLD().observe(this, {
             if (it is Resource.Error) {
-                binding.tilUsername.error = getString(R.string.username_error)
+                binding.tilUsername.error = getString(R.string.username_short_error)
                 hideProgress()
             }
         })
@@ -78,13 +77,25 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        binding.btnLogin.setOnClickListener {
+        binding.apply {
+            btnLogin.setOnClickListener {
 //            EspressoIdlingResource.increment()
-            viewModel.login(
-                binding.etUsername.text.toString().trim(),
-                binding.etPassword.text.toString().trim()
-            )
+                viewModel.login(
+                    etUsername.text.toString().trim(),
+                    etPassword.text.toString().trim()
+                )
+            }
+            llProgressBar.llProgress.setOnClickListener { /* no-op */ }
+            etUsername.setOnFocusChangeListener { _, hasFocus ->
+                if (!hasFocus) tilUsername.helperText =
+                    viewModel.getUsernameValidationErrorMessage(etUsername.text.toString().trim())
+                        ?.getText(this@LoginActivity)
+            }
+            etPassword.setOnFocusChangeListener { _, hasFocus ->
+                if (!hasFocus) tilPassword.helperText =
+                    viewModel.getPasswordValidationErrorMessage(etPassword.text.toString().trim())
+                        ?.getText(this@LoginActivity)
+            }
         }
-        binding.llProgressBar.llProgress.setOnClickListener { /* no-op */ }
     }
 }

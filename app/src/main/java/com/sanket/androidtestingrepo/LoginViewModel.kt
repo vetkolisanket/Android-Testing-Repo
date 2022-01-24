@@ -27,12 +27,12 @@ open class LoginViewModel @Inject constructor(
 
         if (usernameError != null || passwordError != null) {
             if (usernameError != null) {
-                usernameLD.value = Resource.Error(UiText.StringResource(R.string.username_error))
+                usernameLD.value = Resource.Error(UiText.StringResource(R.string.username_short_error))
                 return
             }
 
             if (passwordError != null) {
-                passwordLD.value = Resource.Error(UiText.StringResource(R.string.password_error))
+                passwordLD.value = Resource.Error(UiText.StringResource(R.string.password_short_error))
                 return
             }
         }
@@ -42,6 +42,20 @@ open class LoginViewModel @Inject constructor(
                 loginLD.value = response
             }
         })
+    }
+
+    fun getUsernameValidationErrorMessage(username: String): UiText? {
+        if (username.length < 4) return UiText.StringResource(R.string.username_short_error)
+        return null
+    }
+
+    fun getPasswordValidationErrorMessage(password: String): UiText? {
+        if (password.length < 6) return UiText.StringResource(R.string.password_short_error)
+        if (!password.matches(".*[A-Z].*".toRegex())) return UiText.StringResource(R.string.password_no_uppercase_error)
+        if (!password.matches(".*[a-z].*".toRegex())) return UiText.StringResource(R.string.password_no_lowercase_error)
+        if (!password.matches(".*[0-9].*".toRegex())) return UiText.StringResource(R.string.password_no_digit_error)
+        if (!password.matches(".*[!@#\$%^&*].*".toRegex())) return UiText.StringResource(R.string.password_no_uppercase_error)
+        return null
     }
 
 }

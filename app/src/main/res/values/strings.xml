@@ -5,8 +5,12 @@
     <string name="login">Login</string>
     <string name="user_name_password_note">Note: Username should be at least 4 characters long and password should be at least 6 characters long</string>
     <string name="unknown_error">Unknown Error</string>
-    <string name="username_error">Username should be at least 4 characters long</string>
-    <string name="password_error">Password should be at least 6 characters long</string>
+    <string name="username_short_error">Username should be at least 4 characters long</string>
+    <string name="password_short_error">Password should be at least 6 characters long</string>
     <string name="please_wait">Please wait …</string>
     <string name="required_asterisk">Required*</string>
+    <string name="password_no_uppercase_error">Password must contain at least 1 uppercase character</string>
+    <string name="password_no_lowercase_error">Password must contain at least 1 lowercase character</string>
+    <string name="password_no_digit_error">Password must contain at least 1 digit character</string>
+    <string name="password_no_special_character_error">Password must contain at least one of [!@#$%^&amp;*] characters</string>
 </resources>
