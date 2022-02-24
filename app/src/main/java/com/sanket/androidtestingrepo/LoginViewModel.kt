@@ -9,17 +9,17 @@ import javax.inject.Inject
 @HiltViewModel
 open class LoginViewModel @Inject constructor(
     private val repository: AuthRepository
-) : ViewModel() {
+) : ViewModel(), ILoginViewModel {
 
     private val loginLD = MutableLiveData<SimpleResource>()
     private val usernameLD = MutableLiveData<SimpleResource>()
     private val passwordLD = MutableLiveData<SimpleResource>()
 
-    open fun getLoginLD(): LiveData<SimpleResource> = loginLD
-    open fun getUsernameLD(): LiveData<SimpleResource> = usernameLD
-    open fun getPasswordLD(): LiveData<SimpleResource> = passwordLD
+    override fun getLoginLD(): LiveData<SimpleResource> = loginLD
+    override fun getUsernameLD(): LiveData<SimpleResource> = usernameLD
+    override fun getPasswordLD(): LiveData<SimpleResource> = passwordLD
 
-    open fun login(username: String, password: String) {
+    override fun login(username: String, password: String) {
         loginLD.value = Resource.Loading
 
         val usernameError = if (username.length < 4) AuthError.InputTooShort else null
@@ -44,12 +44,12 @@ open class LoginViewModel @Inject constructor(
         })
     }
 
-    fun getUsernameValidationErrorMessage(username: String): UiText? {
+    override fun getUsernameValidationErrorMessage(username: String): UiText? {
         if (username.length < 4) return UiText.StringResource(R.string.username_short_error)
         return null
     }
 
-    fun getPasswordValidationErrorMessage(password: String): UiText? {
+    override fun getPasswordValidationErrorMessage(password: String): UiText? {
         if (password.length < 6) return UiText.StringResource(R.string.password_short_error)
         if (!password.matches(".*[A-Z].*".toRegex())) return UiText.StringResource(R.string.password_no_uppercase_error)
         if (!password.matches(".*[a-z].*".toRegex())) return UiText.StringResource(R.string.password_no_lowercase_error)
