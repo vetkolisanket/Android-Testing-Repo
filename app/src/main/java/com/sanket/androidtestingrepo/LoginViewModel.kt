@@ -22,19 +22,14 @@ open class LoginViewModel @Inject constructor(
     override fun login(username: String, password: String) {
         loginLD.value = Resource.Loading
 
-        val usernameError = if (username.length < 4) AuthError.InputTooShort else null
-        val passwordError = if (password.length < 6) AuthError.InputTooShort else null
+        if (username.length < 4) {
+            loginLD.value = Resource.Error(UiText.StringResource(R.string.username_short_error))
+            return
+        }
 
-        if (usernameError != null || passwordError != null) {
-            if (usernameError != null) {
-                usernameLD.value = Resource.Error(UiText.StringResource(R.string.username_short_error))
-                return
-            }
-
-            if (passwordError != null) {
-                passwordLD.value = Resource.Error(UiText.StringResource(R.string.password_short_error))
-                return
-            }
+        if (password.length < 6) {
+            loginLD.value = Resource.Error(UiText.StringResource(R.string.password_short_error))
+            return
         }
 
         repository.login(username, password, object : ResponseCallback<SimpleResource> {

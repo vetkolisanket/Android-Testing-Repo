@@ -65,7 +65,15 @@ class LoginViewModelTest {
 
     @Test
     fun `given empty username, when login is called, then should return error`() {
-
+        username = ""
+        loginViewModel.getLoginLD().observeForTesting(mockLoginObserver) {
+            loginViewModel.login(username, password)
+            Mockito.verify(mockLoginObserver).onChanged(Resource.Loading)
+            val resource = loginViewModel.getLoginLD().getOrAwaitValue()
+            Assert.assertTrue(resource is Resource.Error)
+            Assert.assertTrue(resource.uiText is UiText.StringResource)
+            Assert.assertTrue((resource.uiText as UiText.StringResource).id == R.string.username_short_error)
+        }
     }
 
     @Test
