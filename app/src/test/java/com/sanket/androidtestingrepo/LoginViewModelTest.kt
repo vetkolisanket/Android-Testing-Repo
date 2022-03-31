@@ -30,13 +30,15 @@ class LoginViewModelTest {
     @Captor
     private lateinit var responseCaptor: ArgumentCaptor<ResponseCallback<SimpleResource>>
 
-    private var username = "Sanket"
-    private var password = "Sanket"
+    private lateinit var username: String
+    private lateinit var password: String
 
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this)
         loginViewModel = LoginViewModel(mockRepository)
+        username = "Sanket"
+        password = "Password"
     }
 
     @Test
@@ -78,7 +80,15 @@ class LoginViewModelTest {
 
     @Test
     fun `given empty password, when login is called, then should return error`() {
-
+        password = ""
+        loginViewModel.getLoginLD().observeForTesting(mockLoginObserver) {
+            loginViewModel.login(username, password)
+            Mockito.verify(mockLoginObserver).onChanged(Resource.Loading)
+            val resource = loginViewModel.getLoginLD().getOrAwaitValue()
+            Assert.assertTrue(resource is Resource.Error)
+            Assert.assertTrue(resource.uiText is UiText.StringResource)
+            Assert.assertTrue((resource.uiText as UiText.StringResource).id == R.string.password_short_error)
+        }
     }
 
     @Test
