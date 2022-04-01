@@ -91,14 +91,4 @@ class LoginViewModelTest {
         }
     }
 
-    @Test
-    fun `given short username, when login is called, then should return error`() {
-
-    }
-
-    @Test
-    fun `given short password, when login is called, then should return error`() {
-
-    }
-
 }

@@ -12,12 +12,8 @@ open class LoginViewModel @Inject constructor(
 ) : ViewModel(), ILoginViewModel {
 
     private val loginLD = MutableLiveData<SimpleResource>()
-    private val usernameLD = MutableLiveData<SimpleResource>()
-    private val passwordLD = MutableLiveData<SimpleResource>()
 
     override fun getLoginLD(): LiveData<SimpleResource> = loginLD
-    override fun getUsernameLD(): LiveData<SimpleResource> = usernameLD
-    override fun getPasswordLD(): LiveData<SimpleResource> = passwordLD
 
     override fun login(username: String, password: String) {
         loginLD.value = Resource.Loading
